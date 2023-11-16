@@ -10,10 +10,6 @@ import InputRadio from '@/components/InputRadio.vue'
 const mode = ref<'shoot' | 'stream'>('shoot')
 const itemMode = ['shoot', 'stream']
 
-// COLOR LASER
-const colorLaser = ref<'red' | 'blue' | 'green' | 'yellow' | 'white'>('red')
-const itemLaser = ['red', 'blue', 'green', 'yellow', 'white']
-
 const decode = ref<Result | undefined>(undefined)
 const isLoading = ref<boolean>(false)
 function onResult(data: Result | undefined): void {
@@ -26,13 +22,49 @@ function onLoading(loading: boolean) {
 </script>
 
 <template>
-  <!-- STREAMBARCODERESER -->
-  <StreamQrcodeBarcodeReader
-    :capture="mode"
-    :color-laser="colorLaser"
-    @onloading="onLoading"
-    @result="onResult"
-  />
+  <div class="container mx-auto py-10">
+    <!-- MODE -->
+    <div class="flex md:flex-row flex-col justify-center items-center">
+      <h5 class="md:text-lg text-base font-medium me-2">Select mode:</h5>
+
+      <InputRadio
+        v-for="item in itemMode"
+        :key="item"
+        v-model="mode"
+        :value="item"
+        :target-id="`mode-${item}`"
+        class="me-2"
+      />
+    </div>
+    <!-- END MODE -->
+
+    <!-- PHONE VIEW -->
+    <div class="flex flex-col items-center justify-center mt-6">
+      <pre>Result:{{ decode }}</pre>
+
+      <div class="phone mt-6">
+        <div class="notch-container">
+          <div class="notch"></div>
+        </div>
+
+        <div class="content">
+          <template v-if="!isLoading">
+            <h1 class="text-xl mb-2">Reader Barcode & QRCode</h1>
+            <h2 class="text-base text-red-500 capitalize mb-4">mode: {{ mode }}</h2>
+          </template>
+
+          <!-- STREAMBARCODERESER -->
+          <StreamQrcodeBarcodeReader
+            :capture="mode"
+            @onloading="onLoading"
+            @result="onResult"
+            class="rounded-lg"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- END PHONE VIEW -->
+  </div>
 </template>
 
 <style lang="scss" scoped>
