@@ -218,7 +218,7 @@ function onChangeFacemode() {
         </div>
       </slot>
 
-      <slot name="action-facemode">
+      <slot name="action-facemode" :onChangeFacemode="onChangeFacemode">
         <div class="container-btn-facemode">
           <button class="btn-facemode" @click="onChangeFacemode">
             <IconCamera />
