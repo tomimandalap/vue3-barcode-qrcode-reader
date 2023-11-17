@@ -36,7 +36,7 @@ The Vue3 Barcode and QR code scanner works out of the box by just including it.
 Once a stream from the users camera is loaded, it's displayed and continuously scanned for barcodes. Results are indicated by the decode event.
 
 ```js
-import { StreamQrcodeBarcodeReader } from 'vue-barcode-reader'
+import { StreamQrcodeBarcodeReader, IconCameraVue } from 'vue-barcode-reader'
 ```
 
 In your template you can use this syntax:
@@ -48,6 +48,41 @@ In your template you can use this syntax:
   @onloading="onLoading"
   @result="onResult"
 />
+```
+
+### Implementation with slot
+
+```html
+<StreamQrcodeBarcodeReader
+  capture="shoot"
+  @onloading="onLoading"
+  @result="onResult"
+  class="rounded-2xl"
+>
+  <template #actions="{ onCanPlay, isReset, onReset }">
+    <button class="bg-green-300 px-6 py-1 rounded-md" @click="onCanPlay">Stream</button>
+    <button v-if="isReset" class="bg-blue-300 px-6 py-1 rounded-md ms-2" @click="onReset()">
+      Reset
+    </button>
+  </template>
+
+  <template #action-stop="{ onCanStop }">
+    <div class="container-btn-stop">
+      <button class="bg-pink-300 px-6 py-1 rounded-md" @click="onCanStop()">Stop</button>
+    </div>
+  </template>
+
+  <template #action-facemode="{ onChangeFacemode }">
+    <div class="container-btn-facemode">
+      <button
+        class="bg-red-300 w-10 h-10 p-2 inline-flex justify-center items-center rounded-full"
+        @click="onChangeFacemode"
+      >
+        <IconCameraVue />
+      </button>
+    </div>
+  </template>
+</StreamQrcodeBarcodeReader>
 ```
 
 ## Props
@@ -65,6 +100,14 @@ When the barcode or QR code is successfully scanned, the scanning process will s
 When the barcode or QR code is successfully scanned, the scanning process will not stop.
 
 ---
+
+## Slot
+
+|    Parameter     |             value              |         Type          | Description                                                                                                                                    |
+| :--------------: | :----------------------------: | :-------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|     #actions     | {onCanPlay, isReset, onReset } | func & boolean & func | `onCanPlay` func for start stream camera & `isReset` state for handle show or hide button reset & `onReset` func for handle reset value Result |
+|   #action-stop   |          {onCanStop}           |         func          | function for hanlde stop stream camera                                                                                                         |
+| #action-facemode |       {onChangeFacemode}       |         func          | function for hanlde switch camera on mobile                                                                                                    |
 
 ## Events
 
