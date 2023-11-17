@@ -8,10 +8,6 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  "vueCompilerOptions": {
-    "target": 3, // For Vue version <= 2.6.14
-    "experimentalUseElementAccessInTemplate": true
-  },
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
