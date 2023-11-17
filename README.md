@@ -9,12 +9,6 @@ A Vue.js set of components to scan barcodes and QR codes.
 - Can scan both barcodes and QR codes
 - Uses [ZXing](https://github.com/zxing-js/library) ("zebra crossing"), an open-source, multi-format 1D/2D barcode image processing library implemented in Java, with ports to other languages.
 
-## Demo
-
-[Demo repository](https://github.com/olefirenko/vue-barcode-reader-example) | [Codesandbox](https://codesandbox.io/s/vue-barcode-reader-demo-guj3f) | [Vercel](https://vue-barcode-reader-example-2iiz1fhbf-olefirenko.vercel.app/) | [Netlify](https://stupefied-meitner-58f299.netlify.app/)
-
-Or you can check the library in action on the website [parceltrackingapp.com](https://parceltrackingapp.com/en).
-
 ## Installation
 
 The easiest way to use Vue Barcode Reader is to install it from **npm** or **yarn**.
@@ -42,7 +36,7 @@ The Vue3 Barcode and QR code scanner works out of the box by just including it.
 Once a stream from the users camera is loaded, it's displayed and continuously scanned for barcodes. Results are indicated by the decode event.
 
 ```js
-import StreamQrcodeBarcodeReader from 'vue-barcode-reader'
+import { StreamQrcodeBarcodeReader } from 'vue-barcode-reader'
 ```
 
 In your template you can use this syntax:
@@ -56,9 +50,31 @@ In your template you can use this syntax:
 />
 ```
 
+## Props
+
+| Parameter |        value        | Type | Description   |
+| :-------: | :-----------------: | :--: | ------------- |
+|  capture  | "shoot" or "stream" | emun | Props capture |
+
+### shoot
+
+When the barcode or QR code is successfully scanned, the scanning process will stop.
+
+### strean
+
+When the barcode or QR code is successfully scanned, the scanning process will not stop.
+
+---
+
 ## Events
 
 The library emits the following events:
+
+| Parameter |       type        |
+| :-------: | :---------------: |
+|  loaded   |     function      |
+| onloading | function(payload) |
+|  result   | function(payload) |
 
 ### loaded
 
@@ -68,19 +84,21 @@ When the libraty is loaded and the camera is ready to scan
 
 for get value loading from component.
 
+#### .js
+
 ```js
-..your code
 const isLoading = ref(false)
 function onLoading(loading) {
-isLoading.value = loading
+  isLoading.value = loading
 }
 ```
 
+#### .ts
+
 ```ts
-..your code
 const isLoading = ref<boolean>(false)
 function onLoading(loading: boolean) {
-isLoading.value = loading
+  isLoading.value = loading
 }
 ```
 
@@ -112,11 +130,22 @@ When a barcode or QR code is scanned. The result is passed as a parameter to the
 
 If you want to implement it in your code, you can follow this example:
 
+### .js
+
 ```js
-...your code
 const resultScan = ref(undefined)
 function onResult(result) {
-    resultScan.value = result
+  resultScan.value = result
+}
+```
+
+### .ts
+
+```ts
+import { Result } from 'vue-barcode-reader'
+const resultScan = ref<Result | undefined>(undefined)
+function onResult(result: Result | undefined) {
+  resultScan.value = result
 }
 ```
 
