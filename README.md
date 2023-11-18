@@ -99,7 +99,7 @@ In your template you can use this syntax:
 
 When the barcode or QR code is successfully scanned, the scanning process will stop.
 
-### strean
+### stream
 
 When the barcode or QR code is successfully scanned, the scanning process will not stop.
 
