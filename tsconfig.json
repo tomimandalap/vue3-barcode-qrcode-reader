@@ -22,10 +22,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "outDir": "dist",
-    "declaration": true,
-    "noImplicitAny": false,
-    "allowJs": true,
-    "checkJs": false
+    "declaration": true
   },
   "include": ["lib/**/*.ts", "lib/**/*.d.ts", "lib/**/*.tsx", "lib/**/*.vue"]
 }
