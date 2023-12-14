@@ -20,6 +20,11 @@ const isMediaStreamAPISupported = ref<boolean>(
 const RESULT = ref<Result | undefined>(undefined)
 const { width: WIDTH, height: HEIGHT } = useWindowSize()
 
+/**
+ * NOTE :
+ * showOnStream for hanle show/hide button stream
+ * capture for set mode shoot or stream
+ */
 const porps = defineProps({
   showOnStream: {
     type: Boolean,
