@@ -31,7 +31,6 @@ const porps = defineProps({
 const emits = defineEmits<{
   (e: 'onloading', value: boolean): void
   (e: 'loaded', value: Event): void
-  // (e: 'decode', value: string): void
   (e: 'result', value: Result | undefined): void
 }>()
 
@@ -112,14 +111,12 @@ function startStreaming(): void {
     video: {
       facingMode: 'environment' | 'user'
       aspectRatio: number
-      // deviceId?: { exact: string }
     }
   } = {
     audio: false,
     video: {
       facingMode: facingmode,
       aspectRatio: aspectRatioCalc
-      // deviceId: { exact }
     }
   }
 
@@ -132,7 +129,6 @@ function startStreaming(): void {
       const data = result as Result
       RESULT.value = data
       emits('result', data)
-      // emits('decode', result.getText())
 
       // when capture mode is shoot
       if (isCaptureMode.value) return onCanStop(isCaptureMode.value)
@@ -155,7 +151,6 @@ function onReset(state: boolean = false): void {
 
   RESULT.value = undefined
   emits('result', RESULT.value)
-  // emits('decode', '')
 }
 
 /*
