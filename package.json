@@ -1,6 +1,6 @@
 {
   "name": "vue3-barcode-qrcode-reader",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Vue 3 barcodes and QR codes scanner",
   "type": "module",
   "files": [
@@ -41,8 +41,9 @@
   "dependencies": {
     "@vueuse/core": "^10.6.1",
     "@zxing/library": "^0.20.0",
-    "vue": "^3.3.4",
-    "vue-demi": "^0.14.6"
+    "vue": "^3.3.11",
+    "vue-demi": "^0.14.6",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",
