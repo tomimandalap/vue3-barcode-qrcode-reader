@@ -20,7 +20,16 @@ const isMediaStreamAPISupported = ref<boolean>(
 const RESULT = ref<Result | undefined>(undefined)
 const { width: WIDTH, height: HEIGHT } = useWindowSize()
 
+/**
+ * NOTE :
+ * showOnStream for hanle show/hide button stream
+ * capture for set mode shoot or stream
+ */
 const porps = defineProps({
+  showOnStream: {
+    type: Boolean,
+    default: false
+  },
   capture: {
     type: String as PropType<'shoot' | 'stream'>,
     default: 'stream'
@@ -31,7 +40,6 @@ const porps = defineProps({
 const emits = defineEmits<{
   (e: 'onloading', value: boolean): void
   (e: 'loaded', value: Event): void
-  // (e: 'decode', value: string): void
   (e: 'result', value: Result | undefined): void
 }>()
 
@@ -112,14 +120,12 @@ function startStreaming(): void {
     video: {
       facingMode: 'environment' | 'user'
       aspectRatio: number
-      // deviceId?: { exact: string }
     }
   } = {
     audio: false,
     video: {
       facingMode: facingmode,
       aspectRatio: aspectRatioCalc
-      // deviceId: { exact }
     }
   }
 
@@ -132,7 +138,6 @@ function startStreaming(): void {
       const data = result as Result
       RESULT.value = data
       emits('result', data)
-      // emits('decode', result.getText())
 
       // when capture mode is shoot
       if (isCaptureMode.value) return onCanStop(isCaptureMode.value)
@@ -155,7 +160,6 @@ function onReset(state: boolean = false): void {
 
   RESULT.value = undefined
   emits('result', RESULT.value)
-  // emits('decode', '')
 }
 
 /*
@@ -203,6 +207,11 @@ function onChangeFacemode() {
     onCanPlay()
   }, 500)
 }
+
+/**
+ * Adding expose method onCanPlay, onCanStop, onReset and onChangeFacemode
+ */
+defineExpose({ onCanPlay, onCanStop, onReset, onChangeFacemode })
 </script>
 
 <template>
@@ -229,9 +238,13 @@ function onChangeFacemode() {
 
     <template v-else>
       <slot name="actions" :onCanPlay="onCanPlay" :isReset="isReset" :onReset="onReset">
-        <button type="button" class="btn-stream" @click="onCanPlay">Stream</button>
+        <template v-if="!showOnStream">
+          <button type="button" class="btn-stream" @click="onCanPlay">Stream</button>
+        </template>
 
-        <button v-if="isReset" type="button" class="btn-reset" @click="onReset()">Reset</button>
+        <template v-if="isReset">
+          <button type="button" class="btn-reset" @click="onReset()">Reset</button>
+        </template>
       </slot>
     </template>
   </div>
