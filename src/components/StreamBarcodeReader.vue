@@ -207,6 +207,11 @@ function onChangeFacemode() {
     onCanPlay()
   }, 500)
 }
+
+/**
+ * Adding expose method onCanPlay, onCanStop, onReset and onChangeFacemode
+ */
+defineExpose({ onCanPlay, onCanStop, onReset, onChangeFacemode })
 </script>
 
 <template>
