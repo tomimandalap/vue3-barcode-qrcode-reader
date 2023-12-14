@@ -21,6 +21,10 @@ const RESULT = ref<Result | undefined>(undefined)
 const { width: WIDTH, height: HEIGHT } = useWindowSize()
 
 const porps = defineProps({
+  showOnStream: {
+    type: Boolean,
+    default: false
+  },
   capture: {
     type: String as PropType<'shoot' | 'stream'>,
     default: 'stream'
@@ -224,9 +228,13 @@ function onChangeFacemode() {
 
     <template v-else>
       <slot name="actions" :onCanPlay="onCanPlay" :isReset="isReset" :onReset="onReset">
-        <button type="button" class="btn-stream" @click="onCanPlay">Stream</button>
+        <template v-if="!showOnStream">
+          <button type="button" class="btn-stream" @click="onCanPlay">Stream</button>
+        </template>
 
-        <button v-if="isReset" type="button" class="btn-reset" @click="onReset()">Reset</button>
+        <template v-if="isReset">
+          <button type="button" class="btn-reset" @click="onReset()">Reset</button>
+        </template>
       </slot>
     </template>
   </div>
