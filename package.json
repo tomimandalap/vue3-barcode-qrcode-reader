@@ -1,6 +1,6 @@
 {
   "name": "vue3-barcode-qrcode-reader",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Vue 3 barcodes and QR codes scanner",
   "type": "module",
   "files": [
